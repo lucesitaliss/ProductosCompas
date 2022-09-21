@@ -14,19 +14,19 @@ CREATE TABLE productos(
 
 CREATE TABLE personas(
     idper SERIAL PRIMARY key,
-    nombreper VARCHAR(255) UNIQUE,
-)
+    nombreper VARCHAR(255) UNIQUE
+);
 
 CREATE TABLE listacompra(
     idlc SERIAL PRIMARY KEY,
     productoid integer REFERENCES productos (idpro),
     personaid integer REFERENCES personas (idper),
     fecha DATE
-)
+);
 
 CREATE TABLE historicocompra (
     idlch SERIAL PRIMARY KEY,
-    productoid integer REFERENCES,
-    personaid integer REFERENCES, 
+    productoid integer REFERENCES productos (idpro),
+    personaid integer REFERENCES personas (idper), 
     fecha DATE
-)
+);
