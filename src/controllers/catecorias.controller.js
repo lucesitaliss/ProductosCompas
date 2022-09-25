@@ -50,9 +50,10 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   const { id } = req.params
-  const result = await pool.query(`DELETE FROM categorias WHERE idcat = $1 RETURNING *`, [
-    id,
-  ])
+  const result = await pool.query(
+    `DELETE FROM categorias WHERE idcat = $1 RETURNING *`,
+    [id],
+  )
   console.log(result)
   res.json(result.rows[0])
 }
