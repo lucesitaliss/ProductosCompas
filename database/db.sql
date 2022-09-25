@@ -6,6 +6,8 @@ CREATE TABLE categorias(
 
 );
 
+SELECT * FROM categorias;
+
 CREATE TABLE productos(
     idpro SERIAL PRIMARY KEY,
     nombreprod VARCHAR(255) UNIQUE,
