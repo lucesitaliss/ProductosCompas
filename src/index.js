@@ -6,6 +6,9 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(categoriarouter)
+app.use((err, req, res, next) =>{
+    return res.json({message: err.message })
+})
 
 app.listen(4000)
 console.log('el puerto 4000 es del servidor de backend')
