@@ -1,21 +1,19 @@
 const pool = require('../db')
 
-const allCategory = async (req, res, next) => {
+const getCategorys = async (req, res, next) => {
   try {
-    const result = await pool.query('SELECT* FROM categorias')
-    console.log(result)
+    const result = await pool.query('SELECT* FROM categorys WHERE state_id = 1')
     res.json(result.rows)
   } catch (error) {
     next(error)
   }
 }
 
-const onecategory = async (req, res, next) => {
+const getCategoryById = async (req, res, next) => {
   const { id } = req.params
-  console.log(req.params.id)
   try {
     const result = await pool.query(
-      `SELECT* FROM categorias WHERE idcat = $1`,
+      `SELECT* FROM categorys WHERE id_category = $1`,
       [id],
     )
     if (result.rowCount === 0) {
@@ -30,12 +28,13 @@ const onecategory = async (req, res, next) => {
 }
 
 const insertCategory = async (req, res, next) => {
-  const { categoria } = req.body
+  const { category } = req.body
   try {
     const result = await pool.query(
-      'INSERT INTO categorias (nombrecat) VALUES ($1) RETURNING *',
-      [categoria],
+      'INSERT INTO categorys (name_category, state_id) VALUES ($1, $2) RETURNING *',
+      [category, 1],
     )
+    console.log(result)
     res.json(result.rows[0])
   } catch (error) {
     next(error)
@@ -43,11 +42,11 @@ const insertCategory = async (req, res, next) => {
 }
 
 const updateCategory = async (req, res, next) => {
-  const { id, categoria } = req.body
+  const { id, category, state_id } = req.body
   try {
     const result = await pool.query(
-      `UPDATE categorias SET nombrecat = $1 WHERE idcat = $2 RETURNING *`,
-      [categoria, id],
+      `UPDATE categorys SET name_category = $1,  state_id = $3 WHERE id_category = $2 RETURNING *`,
+      [category, id, state_id],
     )
 
     res.json(result.rows[0])
@@ -60,7 +59,7 @@ const deleteCategory = async (req, res, next) => {
   const { id } = req.params
   try {
     const result = await pool.query(
-      `DELETE FROM categorias WHERE idcat = $1 RETURNING *`,
+      `DELETE FROM categorys WHERE id_category = $1 RETURNING *`,
       [id],
     )
     if (result.rowCount === 0) {
@@ -75,8 +74,8 @@ const deleteCategory = async (req, res, next) => {
 }
 
 module.exports = {
-  allCategory,
-  onecategory,
+  getCategorys,
+  getCategoryById,
   insertCategory,
   updateCategory,
   deleteCategory,
