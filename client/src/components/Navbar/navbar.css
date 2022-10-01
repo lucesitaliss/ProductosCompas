@@ -1,0 +1,14 @@
+
+nav{
+    display: flex;
+   background-color: rgb(58, 56, 56);
+    justify-content: space-evenly;
+    padding: 5px;
+}
+a{
+    color: rgb(211, 203, 203);   
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium; 
+    text-decoration: none;
+   
+}
