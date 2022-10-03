@@ -1,11 +1,21 @@
 const express = require('express')
 const morgan = require('morgan')
-const categoriarouter = require('./routes/categorias.routes')
+const cors = require('cors')
+
+const port = 4000
+
+const categoriarouter = require('./routes/category.routes')
+
 const app = express()
 
-app.use(express.json())
+app.use(cors())
 app.use(morgan('dev'))
-app.use(categoriarouter)
+app.use(express.json())
 
-app.listen(4000)
-console.log('el puerto 4000 es del servidor de backend')
+app.use(categoriarouter)
+app.use((error, req, res, next) => {
+  return res.json({message: error.message })
+})
+
+app.listen(port)
+console.log(`el puerto ${port} es del servidor de backend`)
