@@ -29,6 +29,8 @@ const getCategoryById = async (req, res, next) => {
 
 const insertCategory = async (req, res, next) => {
   const { category } = req.body
+  const upperCategory =
+    category[0].toUpperCase() + category.slice(1).toLowercase()
   try {
     const result = await pool.query(
       'INSERT INTO categorys (name_category, state_id) VALUES ($1, $2) RETURNING *',
@@ -49,6 +51,20 @@ const updateCategory = async (req, res, next) => {
       [category, id, state_id],
     )
 
+    res.json(result.rows[0])
+  } catch (error) {
+    next(error)
+  }
+}
+
+const updateDeleteCategory = async (req, res, next) => {
+  const { id, state_id } = req.body
+  try {
+    const result = await pool.query(
+      'UPDATE categorys SET state_id= $1 WHERE id_category= $2 RETURNING*',
+      [state_id, id],
+    )
+    console.log(result)
     res.json(result.rows[0])
   } catch (error) {
     next(error)
@@ -79,4 +95,5 @@ module.exports = {
   insertCategory,
   updateCategory,
   deleteCategory,
+  updateDeleteCategory,
 }
