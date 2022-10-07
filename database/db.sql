@@ -55,3 +55,17 @@ Insert
  VALUES ('activo');
  INSERT INTO statuses (name_state)
  VALUES ('inactivo');
+
+ 
+ INSERT INTO cart (product_id)
+ values (2);
+
+ SELECT categorys.id_category,
+  categorys.name_category, 
+  products.name_product,
+  products.id_product,
+  products.category_id,
+  cart.product_id 
+  FROM categorys
+  JOIN products ON categorys.id_category = products.category_id
+  JOIN cart ON cart.product_id = products.id_product;
