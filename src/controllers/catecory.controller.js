@@ -1,5 +1,5 @@
 const pool = require('../db')
-
+const { capitalize } = require('../utils/strings')
 const getCategorys = async (req, res, next) => {
   try {
     const result = await pool.query('SELECT* FROM categorys WHERE state_id = 1')
@@ -29,12 +29,11 @@ const getCategoryById = async (req, res, next) => {
 
 const insertCategory = async (req, res, next) => {
   const { category } = req.body
-  const upperCategory =
-    category[0].toUpperCase() + category.slice(1).toLowercase()
+
   try {
     const result = await pool.query(
       'INSERT INTO categorys (name_category, state_id) VALUES ($1, $2) RETURNING *',
-      [category, 1],
+      [capitalize(category), 1],
     )
     console.log(result)
     res.json(result.rows[0])

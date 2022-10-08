@@ -1,4 +1,5 @@
 const pool = require('../db')
+const { capitalize } = require('../utils/strings')
 
 const getProducts = async (req, res, next) => {
   try {
@@ -24,12 +25,11 @@ const getProductById = async (req, res, next) => {
 
 const insertProduct = async (req, res, next) => {
   const { product, category } = req.body
-  const upperProduct = product[0].toUpperCase() + product.slice(1).toLowerCase()
 
   try {
     const result = await pool.query(
       'INSERT INTO products(name_product, category_id, state_id) VALUES ($1, $2, $3) RETURNING*',
-      [upperProduct, category, 1],
+      [capitalize(product), category, 1],
     )
 
     res.json(result.rows[0])
