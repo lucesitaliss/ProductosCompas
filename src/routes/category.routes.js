@@ -7,7 +7,7 @@ const {
   updateCategory,
   updateDeleteCategory,
   deleteCategory,
-} = require('../controllers/catecory.controller')
+} = require('../controllers/category.controller')
 
 router.get('/categorys', getCategorys)
 router.get('/categorys/:id', getCategoryById)

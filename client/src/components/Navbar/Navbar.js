@@ -4,7 +4,7 @@ import './navbar.css'
 export default function Navbar() {
   return (
     <nav>
-      <NavLink exact to="/">Home</NavLink>
+      <NavLink to="/">Home</NavLink>
       <NavLink to="/newcart">New Cart </NavLink>
       <NavLink to="/cart">Cart</NavLink>
       <NavLink to= "/admin"> Admin</NavLink>

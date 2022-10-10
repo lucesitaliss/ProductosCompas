@@ -5,17 +5,21 @@ import Cart from './components/Cart/index'
 import Admin from './components/Admin/index'
 import Navbar from './components/Navbar/Navbar'
 import NewCart from './components/NewCart/index'
+import { Provider } from 'react-redux'
+import { store } from '../src/app/store'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/newcart" element={<NewCart />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/newcart" element={<NewCart />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }

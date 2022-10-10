@@ -60,6 +60,8 @@ Insert
  INSERT INTO cart (product_id)
  values (2);
 
+
+Todas las categorias y productos Activos
  SELECT categorys.id_category,
   categorys.name_category, 
   products.name_product,
@@ -69,3 +71,9 @@ Insert
   FROM categorys
   JOIN products ON categorys.id_category = products.category_id
   JOIN cart ON cart.product_id = products.id_product;
+
+Producto de una categoria
+SELECT * 
+FROM products
+JOIN categorys ON categorys.id_category = products.category_id
+where categorys.id_category =1;

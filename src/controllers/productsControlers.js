@@ -23,6 +23,24 @@ const getProductById = async (req, res, next) => {
   }
 }
 
+const getProductByCategory = async (req, res, next) => {
+  const { id_category } = req.params
+  try {
+    const result = await pool.query(
+      `
+    SELECT * 
+    FROM products
+    JOIN categorys ON categorys.id_category = products.category_id
+    where categorys.id_category = $1
+    `,
+      [id_category],
+    )
+    res.json(result.rows)
+  } catch (error) {
+    next(error)
+  }
+}
+
 const insertProduct = async (req, res, next) => {
   const { product, category } = req.body
 
@@ -87,4 +105,5 @@ module.exports = {
   updateProduct,
   updateDeleteProduct,
   deleteProducts,
+  getProductByCategory,
 }
