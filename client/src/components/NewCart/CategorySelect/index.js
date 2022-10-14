@@ -8,7 +8,9 @@ export function CategorySelect() {
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
-    dispatch(addCategorySelect(e.target.value))
+    if (e.target.value > 0) {
+      dispatch(addCategorySelect(e.target.value))
+    }
   }
 
   const getCategorys = async () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { CategorySelect } from './CategorySelect'
-import ProductsCheckbox from './PrductsCheckbox/indes'
+import ProductsCheckbox from './ProductsCheckbox/indes'
 
 export default function NewCart() {
   return (

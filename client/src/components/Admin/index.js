@@ -1,17 +1,14 @@
 import React from 'react'
+import TapsUpdateCart from './TapsUpdateCart/index'
 
 export default function Admin() {
   return (
     <div>
       Admin
-      <ul>
-        <li>
-          TapsUpdateCart
-          <ul>
-            <li>Insert</li>
-          </ul>
-        </li>
-      </ul>
+      <div>
+        TapsUpdateCart
+        <TapsUpdateCart />
+      </div>
     </div>
   )
 }

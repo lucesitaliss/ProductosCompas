@@ -29,13 +29,13 @@ const getCategoryById = async (req, res, next) => {
 
 const insertCategory = async (req, res, next) => {
   const { category } = req.body
-
+  
   try {
     const result = await pool.query(
       'INSERT INTO categorys (name_category, state_id) VALUES ($1, $2) RETURNING *',
       [capitalize(category), 1],
     )
-    console.log(result)
+
     res.json(result.rows[0])
   } catch (error) {
     next(error)

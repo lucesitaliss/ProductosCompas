@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './insert.css'
 import { useNavigate } from 'react-router-dom'
 
-export default function Insert({ type }) {
+export default function Insert({}) {
   const [input, setInput] = useState({ category: '' })
   const navegate = useNavigate()
 
@@ -14,8 +14,10 @@ export default function Insert({ type }) {
       headers: { 'content-type': 'application/json' },
     })
     const data = await result.json()
-    console.log(data)
     navegate('/')
+
+    console.log('input', input)
+    console.log(data)
   }
 
   const handleChange = (e) => {
@@ -25,7 +27,10 @@ export default function Insert({ type }) {
 
   return (
     <form onSubmit={handleSumit}>
-      <input placeholder={type} onChange={handleChange} />
+      <input
+        placeholder="Inserte una nueva Categoría"
+        onChange={handleChange}
+      />
 
       <input type="submit" value="Insertar" />
     </form>

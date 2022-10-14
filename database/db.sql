@@ -20,6 +20,11 @@ CREATE TABLE products(
     state_id integer REFERENCES statuses (id_state)
 );
 
+CREATE TABLE products_seleted(
+    id_cart SERIAL PRIMARY KEY,
+    products_select integer[]  
+); 
+
 CREATE TABLE rol(
     id_rol SERIAL PRIMARY KEY,
     rol VARCHAR(255) UNIQUE
@@ -37,6 +42,8 @@ CREATE TABLE cart(
    
 );
 
+
+
 CREATE TABLE history_cart (
     id_historycart SERIAL PRIMARY KEY,
     product_id integer REFERENCES products (id_product),
@@ -44,9 +51,7 @@ CREATE TABLE history_cart (
 );
 
 
-Querys
 
-SELECT * FROM categorys;
 
 
 Insert
@@ -60,6 +65,16 @@ Insert
  INSERT INTO cart (product_id)
  values (2);
 
+
+
+
+INSERT INTO history_cart (product_id, fecha)
+select product_id,  current_timestamp from cart;
+
+
+Querys
+
+SELECT * FROM categorys;
 
 Todas las categorias y productos Activos
  SELECT categorys.id_category,
