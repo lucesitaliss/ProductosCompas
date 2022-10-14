@@ -21,11 +21,17 @@ const getCart = async (req, res, next) => {
 
 const addCart = async (req, res, next) => {
   try {
-    const { id } = req.body
-    const result = await pool.query(
-      'INSERT INTO cart (product_id) VALUES ($1)RETURNING*',
-      [product.id],
+    const idProducts = req.body
+
+    const result = await Promise.all(
+      idProducts.map(async (product) => {
+        return await pool.query(
+          'INSERT INTO cart (product_id) VALUES ($1)RETURNING*',
+          [product.id],
+        )
+      }),
     )
+    
     res.json(result.rows[0])
   } catch (error) {
     next(error)

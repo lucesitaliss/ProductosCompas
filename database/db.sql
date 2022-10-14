@@ -22,7 +22,7 @@ CREATE TABLE products(
 
 CREATE TABLE products_seleted(
     id_cart SERIAL PRIMARY KEY,
-    products_select integer[]  
+    products_select jsonb
 ); 
 
 CREATE TABLE rol(
@@ -92,3 +92,16 @@ SELECT *
 FROM products
 JOIN categorys ON categorys.id_category = products.category_id
 where categorys.id_category =1;
+
+
+
+para cuando se necesita poner un campo json
+
+ const cartSeleted = req.body
+    console.log(JSON.stringify(cartSeleted))
+    const result = await pool.query(
+      `INSERT INTO products_seleted (products_select) SELECT * FROM jsonb_array_elements($1::jsonb)`,
+      [JSON.stringify(cartSeleted)],
+    )
+
+
