@@ -1,17 +1,12 @@
 import React from 'react'
 import { CategorySelect } from './CategorySelect'
-import ProductsCheckbox from './ProductsCheckbox/indes'
+import ProductsCheckbox from './ProductsCheckbox/index'
 
 export default function NewCart() {
   return (
     <div>
-      NewCart
-      <ul>
-        <li>CategorySelect</li>
-        <CategorySelect />
-        <li>ProductCheckbox</li>
-        <ProductsCheckbox></ProductsCheckbox>
-      </ul>
+      <CategorySelect />
+      <ProductsCheckbox />
     </div>
   )
 }

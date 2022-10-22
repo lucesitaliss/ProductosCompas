@@ -13,7 +13,23 @@ const getCart = async (req, res, next) => {
    FROM categorys
    JOIN products ON categorys.id_category = products.category_id
    JOIN cart ON cart.product_id = products.id_product;`)
-    res.json(result.rows)
+
+    const productByCategory = {}
+    const productsByCategorys = []
+
+    result.rows.forEach((product) => {
+      if (!productByCategory[product.name_category]) {
+        productByCategory[product.name_category] = [product]
+        return productByCategory
+      }
+
+      productByCategory[product.name_category].push(product)
+
+      return productByCategory
+    })
+    productsByCategorys.push(productByCategory)
+
+    res.json(productByCategory)
   } catch (error) {
     next(error)
   }
@@ -27,12 +43,12 @@ const addCart = async (req, res, next) => {
       idProducts.map(async (product) => {
         return await pool.query(
           'INSERT INTO cart (product_id) VALUES ($1)RETURNING*',
-          [product.id],
+          [product.id_product],
         )
       }),
     )
-    
-    res.json(result.rows[0])
+
+    res.json(result.rows)
   } catch (error) {
     next(error)
   }

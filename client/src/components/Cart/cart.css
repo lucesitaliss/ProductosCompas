@@ -1,0 +1,9 @@
+.titelButton{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+h3{
+background-color: darkgrey;
+}

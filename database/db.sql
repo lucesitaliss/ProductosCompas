@@ -11,8 +11,6 @@ CREATE TABLE categorys(
     state_id integer REFERENCES statuses (id_state)
 );
 
-
-
 CREATE TABLE products(
     id_product SERIAL PRIMARY KEY,
     name_product VARCHAR(255) UNIQUE,
