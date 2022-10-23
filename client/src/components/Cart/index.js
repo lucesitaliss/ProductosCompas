@@ -51,7 +51,7 @@ export default function Cart() {
         <>
           <h3>{categorys[0]}</h3>
           {categorys[1].map((product) => (
-            <h4>{product.name_product}</h4>
+            <h5>{product.name_product}</h5>
           ))}
         </>
       ))}

@@ -4,6 +4,8 @@ const {
   getProducts,
   insertProduct,
   getProductById,
+  getCheckedById,
+  updateChangeChecked,
   updateProduct,
   updateDeleteProduct,
   deleteProducts,
@@ -15,6 +17,8 @@ router.get('/products/:id', getProductById)
 router.get('/products/category/:id_category', getProductByCategory)
 router.post('/products', insertProduct)
 router.put('/products', updateProduct)
+router.get('/product/checked/id/:idProduct', getCheckedById)
+router.put('/product/checked', updateChangeChecked)
 router.put('/products/delete', updateDeleteProduct)
 router.delete('/products/:id', deleteProducts)
 

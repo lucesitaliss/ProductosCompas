@@ -9,7 +9,7 @@ export function CategorySelect() {
 
   const handleChange = (e) => {
     if (e.target.value > 0) {
-      dispatch(addCategorySelect(e.target.value))
+      dispatch(addCategorySelect(Number(e.target.value)))
     }
   }
 

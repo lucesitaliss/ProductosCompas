@@ -58,14 +58,40 @@ const insertProduct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
   const { product, state_id, category, id } = req.body
-  const upperProduct = product[0].toUpperCase() + product.slice(1).toLowerCase()
   try {
     const result = await pool.query(
       'UPDATE products SET name_product = $1, state_id = $2, category_id =$3 WHERE id_product=$4 RETURNING*',
-      [upperProduct, state_id, category, id],
+      [capitalize(product), state_id, category, id],
     )
 
     res.json(result.rows[0])
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getCheckedById = async (req, res, next) => {
+  try {
+    const { idProduct } = req.params
+    const result = await pool.query(
+      'SELECT checked from products where id_product = $1 ',
+      [idProduct],
+    )
+    res.json(result.rows[0])
+  } catch (error) {
+    next(error)
+  }
+}
+
+const updateChangeChecked = async (req, res, next) => {
+  try {
+    const { valueChecked, idProduct } = req.body
+    const result = await pool.query(
+      'UPDATE products SET checked=$1 where id_product=$2 RETURNING*',
+      [valueChecked, idProduct],
+    )
+
+    res.json(result.rows)
   } catch (error) {
     next(error)
   }
@@ -103,6 +129,8 @@ module.exports = {
   insertProduct,
   getProductById,
   updateProduct,
+  getCheckedById,
+  updateChangeChecked,
   updateDeleteProduct,
   deleteProducts,
   getProductByCategory,

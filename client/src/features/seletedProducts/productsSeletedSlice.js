@@ -8,17 +8,17 @@ export const seletedProductsSlice = createSlice({
   reducers: {
     addSelectProducts: (state, action) => {
       state.selectedProducts = action.payload
-      console.log('action.payload', action.payload)
     },
     updateSelectProducts: (state, action) => {
       state.selectedProducts.find((product) => {
         if (action.payload == product.id_product) {
-          if (product.checked === false) {
-            product.checked = true
-          } else product.checked = false
+          if (product.checked == false) {
+            return (product.checked = true)
+          } else {
+            return (product.checked = false)
+          }
         }
       })
-  
     },
   },
 })

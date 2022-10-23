@@ -15,8 +15,11 @@ CREATE TABLE products(
     id_product SERIAL PRIMARY KEY,
     name_product VARCHAR(255) UNIQUE,
     category_id integer REFERENCES categorys(id_category),
-    state_id integer REFERENCES statuses (id_state)
+    state_id integer REFERENCES statuses (id_state),
+    
 );
+ALTER TABLE products ADD COLUMN checked boolean default false;
+ALTER TABLE products DROP COLUMN checked; 
 
 CREATE TABLE products_seleted(
     id_cart SERIAL PRIMARY KEY,
