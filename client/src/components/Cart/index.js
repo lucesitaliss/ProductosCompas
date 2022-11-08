@@ -22,7 +22,7 @@ export default function Cart() {
     const response = await fetch('http://www.localhost:4000/cart', {
       method: 'Delete',
     })
-    // const result = await response.json()
+
     if (response.ok) {
       setProductsSelect([])
     }
@@ -43,26 +43,22 @@ export default function Cart() {
       <div className="titelButton">
         <h2>Lista de Compras </h2>
         <form onSubmit={handleSumit}>
-          <input type="submit" value="Vaciar Lista" />
+          <input
+            className="ButtonEmptyList"
+            type="submit"
+            value="Vaciar Lista"
+          />
         </form>
       </div>
 
-      {Object.entries(productsSelect).map((categorys) => (
+      {Object.entries(productsSelect).map((categories) => (
         <>
-          <h3>{categorys[0]}</h3>
-          {categorys[1].map((product) => (
+          <h3>{categories[0]}</h3>
+          {categories[1].map((product) => (
             <h5>{product.name_product}</h5>
           ))}
         </>
       ))}
-      {/* {Object.entries(productsSelect).map((categorys, index) => (
-        <>
-          <h3>{categorys[0]}</h3>
-          {categorys[1].map((product) => (
-            <h6>{product.name_product}</h6>
-          ))}
-        </>
-      ))} */}
     </div>
   )
 }

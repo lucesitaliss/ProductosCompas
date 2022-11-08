@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import {
-  addSelectProducts,
-  updateSelectProducts,
-} from '../../../features/seletedProducts/productsSeletedSlice'
 import './productCheckbox.css'
 
 export default function ProductsCheckbox() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+
   const { categoryId } = useSelector((state) => state.categorySelect)
-  const stateSelectedProducts = useSelector(
-    (state) => state.selectedProducts.selectedProducts,
-  )
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -21,35 +14,33 @@ export default function ProductsCheckbox() {
   }, [categoryId])
 
   const getProducts = async () => {
-    const response = await fetch(
-      `http://www.localhost:4000/products/category/${categoryId}`,
-    )
-    const result = await response.json()
-    setProducts(result)
-
-    // const checkedProducts = result.map((product) => {
-    //   product.checked = product.checked ?? false //si es undefiine  o null le asigno false
-    //   return product
-    // })
-
-    //dispatch(addSelectProducts(checkedProducts))
+    if (categoryId > 0) {
+      const response = await fetch(
+        `http://www.localhost:4000/products/category/${categoryId}`,
+      )
+      const result = await response.json()
+      setProducts(result)
+    }
   }
+  console.log(products)
 
   const handleChange = async (e) => {
-    //dispatch(updateSelectProducts(Number(e.target.id)))
+    console.log('e.targetonchange', e.target)
     const oldValueChecked = await fetch(
       `http://www.localhost:4000/product/checked/id/${e.target.id}`,
     )
-    const checked = await oldValueChecked.json()
+    const objectchecked = await oldValueChecked.json()
+    const checked = objectchecked.checked
 
     const invertChecked = (checked) => {
       if (checked) {
         checked = false
+        return checked
       }
       checked = true
       return checked
     }
-    var dataBody = {
+    const dataBody = {
       valueChecked: invertChecked(checked),
       idProduct: e.target.id,
     }
@@ -61,36 +52,34 @@ export default function ProductsCheckbox() {
         body: JSON.stringify(dataBody),
         headers: { 'content-type': 'application/json' },
       },
-      console.log(dataBody),
     )
-    const updated = await updateChecked.json()
-
     getProducts()
   }
 
   const insertCart = async () => {
-    console.log(stateSelectedProducts)
-    const selectProducts = stateSelectedProducts.filter(
+    const getProducts = await fetch('http://www.localhost:4000/products')
+    const allProducts = await getProducts.json()
+    const selectProducts = allProducts.filter(
       (products) => products.checked === true,
     )
-    console.log(selectProducts)
+
     const response = await fetch('http://www.localhost:4000/cart', {
       method: 'Post',
       body: JSON.stringify(selectProducts),
       headers: { 'content-type': 'application/json' },
     })
-    const result = await response.json()
   }
 
-  const handleSumit = (e) => {
+  const handleSumit = async (e) => {
     e.preventDefault()
-    insertCart()
+    await insertCart()
     navigate('/cart')
   }
 
   return (
     <form className="formProductCheckbox" onSubmit={handleSumit}>
-      <input className="buttonEnviar" type="submit" value="Enviar" />
+      <input className="sendButton" type="submit" value="Enviar" name="send" />
+
       {products.map((product) => (
         <label className="productSelect" key={product.id_product}>
           <input

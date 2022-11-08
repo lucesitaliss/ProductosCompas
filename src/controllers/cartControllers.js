@@ -4,14 +4,14 @@ const getCart = async (req, res, next) => {
   try {
     const result = await pool.query(`
    SELECT 
-   categorys.id_category, 
-   categorys.name_category, 
+   categories.id_category, 
+   categories.name_category, 
    products.name_product,
    products.id_product,
    products.category_id,
    cart.product_id 
-   FROM categorys
-   JOIN products ON categorys.id_category = products.category_id
+   FROM categories
+   JOIN products ON categories.id_category = products.category_id
    JOIN cart ON cart.product_id = products.id_product;`)
 
     const productByCategory = {}

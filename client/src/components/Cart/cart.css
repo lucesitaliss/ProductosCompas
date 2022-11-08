@@ -7,3 +7,12 @@
 h3{
 background-color: darkgrey;
 }
+.ButtonEmptyList{
+    width: 90px;
+    height: 30px;
+    margin-left: 15px;
+    margin-top: 5px;
+    text-align: center;
+    background-color: darkgrey;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+}

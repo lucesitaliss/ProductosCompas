@@ -2,17 +2,21 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 20px;
-   }
-.buttonEnviar{
-    width: 80px;
-   height: 30px;
-   margin-bottom: 20px;
-background-color: darkgrey;
-border: 7px;
-font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* padding: 10px;  */
 }
 
 .productSelect{
-    /* padding-top: 100px; */
-}
+display: flex;
+flex-direction: row;
+} 
+.sendButton { 
+    width: 65px;
+    height: 25px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    background-color: darkgrey; 
+    text-align:center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}   

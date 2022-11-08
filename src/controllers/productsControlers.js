@@ -3,7 +3,9 @@ const { capitalize } = require('../utils/strings')
 
 const getProducts = async (req, res, next) => {
   try {
-    const result = await pool.query('SELECT * FROM products WHERE state_id=1')
+    const result = await pool.query(
+      'SELECT * FROM products WHERE state_id=1  ORDER BY name_product',
+    )
     res.json(result.rows)
   } catch (error) {
     next(error)
@@ -30,8 +32,9 @@ const getProductByCategory = async (req, res, next) => {
       `
     SELECT * 
     FROM products
-    JOIN categorys ON categorys.id_category = products.category_id
-    where categorys.id_category = $1
+    JOIN categories ON categories.id_category = products.category_id
+    where categories.id_category = $1 
+    ORDER BY name_product
     `,
       [id_category],
     )
@@ -96,6 +99,14 @@ const updateChangeChecked = async (req, res, next) => {
     next(error)
   }
 }
+const updateResetChecked = async (req, res, next) => {
+  try {
+    const result = pool.query('UPDATE products SET checked=false')
+    res.json((await result).rows)
+  } catch (error) {
+    next(error)
+  }
+}
 
 const updateDeleteProduct = async (req, res, next) => {
   const { id, state_id } = req.body
@@ -131,6 +142,7 @@ module.exports = {
   updateProduct,
   getCheckedById,
   updateChangeChecked,
+  updateResetChecked,
   updateDeleteProduct,
   deleteProducts,
   getProductByCategory,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCategorySelect } from '../../../features/category/categorySlice'
+import './categorySelect.css'
 
 export function CategorySelect() {
-  const [categorys, setCategorys] = useState([])
+  const [categories, setCategories] = useState([])
+  const { categoryId } = useSelector((state) => state.categorySelect)
 
   const dispatch = useDispatch()
 
@@ -13,21 +15,21 @@ export function CategorySelect() {
     }
   }
 
-  const getCategorys = async () => {
-    const response = await fetch('http://www.localhost:4000/categorys')
+  const getCategories = async () => {
+    const response = await fetch('http://www.localhost:4000/categories')
     const result = await response.json()
-    setCategorys(result)
+    setCategories(result)
   }
 
   useEffect(() => {
-    getCategorys()
+    getCategories()
   }, [])
 
   return (
-    <div>
-      <select onChange={handleChange}>
+    <div className="select">
+      <select onChange={handleChange} value={categoryId}>
         <option value="">Seleccione una categoria</option>
-        {categorys.map((category) => (
+        {categories.map((category) => (
           <option key={category.id_category} value={category.id_category}>
             {category.name_category}
           </option>
