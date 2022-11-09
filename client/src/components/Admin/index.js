@@ -11,7 +11,7 @@ export default function Admin() {
     user: 'buttonNotSelected',
   })
 
-  const click = (name, e) => {
+  const click = (name) => {
     setShow(true)
     setNameNav(name)
 

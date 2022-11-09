@@ -39,7 +39,7 @@ export default function Cart() {
   }, [])
 
   return (
-    <div className="list">
+    <div>
       <div className="titelButton">
         <h2>Lista de Compras </h2>
         <form onSubmit={handleSumit}>
@@ -52,12 +52,17 @@ export default function Cart() {
       </div>
 
       {Object.entries(productsSelect).map((categories) => (
-        <>
+        <div className='title'>
           <h3>{categories[0]}</h3>
+          <div className='list'>
+
           {categories[1].map((product) => (
+          
             <h5>{product.name_product}</h5>
+
           ))}
-        </>
+            </div>
+        </div>
       ))}
     </div>
   )

@@ -8,15 +8,13 @@
 .productSelect{
 display: flex;
 flex-direction: row;
+margin-left: 10px;
 } 
 .sendButton { 
-    width: 65px;
-    height: 25px;
-    margin-bottom: 20px;
+    width: 90px;
+    height: 30px;
     margin-left: 10px;
-    background-color: darkgrey; 
-    text-align:center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding-bottom: 10px;
-    padding-top: 5px;
+    margin-top: 5px;
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
 }   

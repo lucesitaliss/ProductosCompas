@@ -1,18 +1,32 @@
+
+h3{
+background-color: darkgrey;
+
+}
+
 .titelButton{
     display: flex;
     justify-content: space-evenly;
 
 }
 
-h3{
-background-color: darkgrey;
-}
+
 .ButtonEmptyList{
     width: 90px;
     height: 30px;
     margin-left: 15px;
     margin-top: 5px;
     text-align: center;
-    background-color: darkgrey;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
+}
+
+
+h5{
+     height: 0; 
+}
+.title{
+   margin-bottom:0;
+}
+.list{
+    margin-top: 0;
 }
