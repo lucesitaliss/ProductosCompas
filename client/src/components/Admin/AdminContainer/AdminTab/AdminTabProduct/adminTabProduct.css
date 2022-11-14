@@ -1,3 +1,11 @@
 .adminproducts{
     display: flex;
 }
+/* .insert{
+    padding-top: 5px;
+    ;
+} */
+
+.listProducts{
+    margin-left: 15px;
+}

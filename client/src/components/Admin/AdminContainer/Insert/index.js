@@ -46,7 +46,7 @@ export default function Insert({ name }) {
   }
 
   return (
-    <form onSubmit={handleSumit}>
+    <form className='inser' onSubmit={handleSumit}>
       <input placeholder={`Insert ${name}`} onChange={handleChange} />
 
       <input type="submit" value="Insertar" />

@@ -34,10 +34,10 @@ export default function AdminTabProduct() {
     <div>
       <div className="adminproducts">
         <CategorySelect />
-        <Insert name="product" />
+        <Insert className= 'insert' name="product" />
       </div>
       {products.map((product) => (
-        <div>{product.name_product}</div>
+        <div className='listProducts'>{product.name_product}</div>
       ))}
     </div>
   )

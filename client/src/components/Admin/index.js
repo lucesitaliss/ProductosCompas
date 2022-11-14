@@ -1,69 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from './AdminContainer/index'
 import '../Admin/admin.css'
 
 export default function Admin() {
+  const [currentTab, setCurrentTab] = useState(0)
+  //const [tabs, setTabs] = useState(adminTabs)
+
+  const adminTabs = {
+    categories: { title: 'Categories', id: 1, alias: 'category' },
+    users: { title: 'Users', id: 2, alias: 'user' },
+    products: { title: 'Products', id: 3, alias: 'product' },
+  }
+  // const [nameNav, setNameNav] = useState('')
+
   const [show, setShow] = useState(false)
-  const [nameNav, setNameNav] = useState('')
-  const [buttonStyle, setButtonStyle] = useState({
-    product: 'buttonNotSelected',
-    category: 'buttonNotSelected',
-    user: 'buttonNotSelected',
-  })
 
-  const click = (name) => {
+  const handleOnClick = (id) => {
+    setCurrentTab(id)
     setShow(true)
-    setNameNav(name)
-
-    if (name === 'product') {
-      const style = {
-        product: 'butonSelected',
-        category: 'buttonNotSelected',
-        user: 'buttonNotSelected',
-      }
-      setButtonStyle(style)
-    }
-    if (name === 'category') {
-      const style = {
-        product: 'buttonNotSelected',
-        category: ' butonSelected',
-        user: 'buttonNotSelected',
-      }
-      setButtonStyle(style)
-    }
-    if (name === 'user') {
-      const style = {
-        product: 'buttonNotSelected',
-        category: ' buttonNotSelected',
-        user: 'butonSelected',
-      }
-      setButtonStyle(style)
-    }
   }
 
   return (
     <div>
-      <div className="nav">
-        <button className={buttonStyle.user} onClick={() => click('user')}>
-          User
-        </button>
-        <button
-          className={buttonStyle.category}
-          onClick={() => {
-            click('category')
-          }}
-        >
-          Category
-        </button>
-
-        <button
-          className={buttonStyle.product}
-          onClick={() => click('product')}
-        >
-          Product
-        </button>
-      </div>
-      <AdminContainer show={show} name={nameNav} />
+      {Object.entries(adminTabs).map(([tabName, tab]) => {
+        const isCurrentTab = currentTab === tab.id
+        return (
+          <div>
+            <button
+              key={tab.id}
+              onClick={() => handleOnClick(tab.id)}
+              className={isCurrentTab ? 'butonSelected' : 'buttonNotSelected'}
+            >
+              {tab.title}
+            </button>
+            <AdminContainer show={show} name={tab.alias} />
+          </div>
+        )
+      })}
     </div>
   )
 }
