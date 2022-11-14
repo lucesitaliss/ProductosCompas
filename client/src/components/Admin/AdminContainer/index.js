@@ -1,6 +1,5 @@
 import React from 'react'
-import Insert from './Insert/index'
-import AdminTap from '../AdminContainer/AdminTap/index'
+import AdminTab from '../AdminContainer/AdminTab/index'
 
 export default function AdminContainer(props) {
   if (!props.show) {
@@ -9,9 +8,8 @@ export default function AdminContainer(props) {
   const { name } = props
   return (
     <div>
-      <div className='prueba'></div>
-      <Insert name={name} />
-      <AdminTap name={name} />
+      <div className="prueba"></div>
+      <AdminTab name={name} />
     </div>
   )
 }
