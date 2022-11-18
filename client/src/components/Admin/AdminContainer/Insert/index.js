@@ -28,6 +28,7 @@ export default function Insert({ name }) {
 
       dispatch(insertNewCategory(newCategory))
       // navegate('/')
+      e.value = ''
     }
     if (name === 'product') {
       const result = await fetch('http://www.localhost:4000/products', {
@@ -46,7 +47,7 @@ export default function Insert({ name }) {
   }
 
   return (
-    <form className='inser' onSubmit={handleSumit}>
+    <form className="inser" onSubmit={handleSumit}>
       <input placeholder={`Insert ${name}`} onChange={handleChange} />
 
       <input type="submit" value="Insertar" />
