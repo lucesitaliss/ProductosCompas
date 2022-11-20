@@ -13,7 +13,7 @@ export default function Insert({ name }) {
     product: '',
     category: '',
   })
-  console.log('dataProduct', dataProduct)
+ 
   // const navegate = useNavigate()
 
   const handleSumit = async (e) => {

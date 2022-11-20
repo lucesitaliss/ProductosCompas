@@ -4,7 +4,7 @@ import './home.css'
 export default function Home() {
   return (
     <div className="containerImgCart">
-      <img className='imgCart' src={'../images/cart3.png'} alt="Error" />
+      {/* <img className='imgCart' src={'../images/cart3.png'} alt="Error" /> */}
     </div>
   )
 }

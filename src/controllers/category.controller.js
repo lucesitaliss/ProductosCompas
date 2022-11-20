@@ -59,11 +59,11 @@ const updateCategory = async (req, res, next) => {
 }
 
 const updateDeleteCategory = async (req, res, next) => {
-  const { id, state_id } = req.body
+  const  {id}  = req.params 
   try {
     const result = await pool.query(
-      'UPDATE categories SET state_id= $1 WHERE id_category= $2 RETURNING*',
-      [state_id, id],
+      'UPDATE categories SET state_id= 2 WHERE id_category= $1 RETURNING*',
+      [id],
     )
     console.log(result)
     res.json(result.rows[0])

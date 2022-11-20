@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import AdminContainer from './AdminContainer/index'
-import '../Admin/admin.css'
+import './admin.css'
 
 export default function Admin() {
   const [currentTab, setCurrentTab] = useState(0)
@@ -13,6 +13,7 @@ export default function Admin() {
   }
 
   const [show, setShow] = useState(false)
+
   const handleOnClick = (id, name) => {
     setCurrentTab(id)
     setShow(true)
@@ -33,7 +34,10 @@ export default function Admin() {
           </button>
         )
       })}
-      <AdminContainer show={show} name={tabName} />
+      <AdminContainer
+        show={show}
+        name={tabName}
+      />
     </div>
   )
 }

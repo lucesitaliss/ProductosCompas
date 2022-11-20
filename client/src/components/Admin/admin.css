@@ -1,8 +1,6 @@
 
 .tab{
-    display:flexS
-    /* padding-top: 50px; */
-    
+    display:flexS;  
 }
 
 .buttonNotSelected{
@@ -11,8 +9,6 @@
     padding: 5px 20px;
     border: 0ch;
     color: white;
-    
-
 }
 
 .butonSelected{
@@ -38,3 +34,9 @@
     color: white;
 }
 
+.styleTab{
+    /* background-color: rgb(202, 199, 199); 
+    height: 1200px; 
+    width: 500px;
+    padding-left: 15px; */
+   }

@@ -22,7 +22,6 @@ export default function ProductsCheckbox() {
       setProducts(result)
     }
   }
-  console.log(products)
 
   const handleChange = async (e) => {
     console.log('e.targetonchange', e.target)
@@ -78,7 +77,12 @@ export default function ProductsCheckbox() {
 
   return (
     <form className="formProductCheckbox" onSubmit={handleSumit}>
-      <input className="sendButton" type="submit" value="Enviar" name="send" />
+      <input
+        className={categoryId ? 'sendButtonActive' : 'sendButtonDesactive'}
+        type="submit"
+        value="Actualizar"
+        name="send"
+      />
 
       {products.map((product) => (
         <label className="productSelect" key={product.id_product}>
