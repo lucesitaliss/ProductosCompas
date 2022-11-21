@@ -5,7 +5,7 @@ const getCategorys = async (req, res, next) => {
     const result = await pool.query(
       'SELECT* FROM categories WHERE state_id = 1',
     )
-    res.json(result.rows)
+    res.status(201).json(result.rows)
   } catch (error) {
     next(error)
   }
@@ -45,13 +45,12 @@ const insertCategory = async (req, res, next) => {
 }
 
 const updateCategory = async (req, res, next) => {
-  const { id, category, state_id } = req.body
+  const { id, category } = req.body
   try {
     const result = await pool.query(
-      `UPDATE categories SET name_category = $1,  state_id = $3 WHERE id_category = $2 RETURNING *`,
-      [category, id, state_id],
+      'UPDATE categories SET name_category = $1 WHERE id_category = $2 RETURNING *',
+      [capitalize(category), id],
     )
-
     res.json(result.rows[0])
   } catch (error) {
     next(error)
@@ -59,7 +58,7 @@ const updateCategory = async (req, res, next) => {
 }
 
 const updateDeleteCategory = async (req, res, next) => {
-  const  {id}  = req.params 
+  const { id } = req.params
   try {
     const result = await pool.query(
       'UPDATE categories SET state_id= 2 WHERE id_category= $1 RETURNING*',
