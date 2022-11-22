@@ -9,19 +9,19 @@ const {
   updateProduct,
   updateResetChecked,
   updateDeleteProduct,
-  deleteProducts,
-  getProductByCategory,
+  deleteProduct,
+  getProductsByCategory,
 } = require('../controllers/productsControlers')
 
 router.get('/products', getProducts)
-router.get('/products/:id', getProductById)
-router.get('/products/category/:id_category', getProductByCategory)
-router.post('/products', insertProduct)
-router.put('/products', updateProduct)
+router.get('/product/:id', getProductById)
+router.get('/products/category/:id_category', getProductsByCategory)
+router.post('/product', insertProduct)
+router.put('/product', updateProduct)
 router.get('/product/checked/id/:idProduct', getCheckedById)
 router.put('/product/checked', updateChangeChecked)
 router.put('/products/checked/reset', updateResetChecked)
-router.put('/products/delete', updateDeleteProduct)
-router.delete('/products/:id', deleteProducts)
+router.put('/product/delete', updateDeleteProduct)
+router.delete('/product/:id', deleteProduct)
 
 module.exports = router

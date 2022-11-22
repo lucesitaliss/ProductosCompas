@@ -6,21 +6,35 @@ export default function Cart() {
   const [productsSelect, setProductsSelect] = useState({})
   const navegate = useNavigate()
 
+  useEffect(() => {
+    getProductsSelections()
+  }, [])
+
   const getProductsSelections = async () => {
-    const response = await fetch(`http://www.localhost:4000/cart`)
-    const result = await response.json()
-    setProductsSelect(result)
+    try {
+      const response = await fetch(`http://www.localhost:4000/cart`)
+      const result = await response.json()
+      if (response.ok) {
+        setProductsSelect(result)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const insertHistorycart = async () => {
-    const response = await fetch('http://www.localhost:4000/history', {
-      method: 'Post',
-    })
+    try {
+      const response = await fetch('http://www.localhost:4000/history', {
+        method: 'POST',
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const deleteCart = async () => {
     const response = await fetch('http://www.localhost:4000/cart', {
-      method: 'Delete',
+      method: 'DELETE',
     })
 
     if (response.ok) {
@@ -34,9 +48,6 @@ export default function Cart() {
     deleteCart()
     navegate('/')
   }
-  useEffect(() => {
-    getProductsSelections()
-  }, [])
 
   return (
     <div>
@@ -52,16 +63,13 @@ export default function Cart() {
       </div>
 
       {Object.entries(productsSelect).map((categories) => (
-        <div className='title'>
+        <div className="title">
           <h3>{categories[0]}</h3>
-          <div className='list'>
-
-          {categories[1].map((product) => (
-          
-            <h5>{product.name_product}</h5>
-
-          ))}
-            </div>
+          <div className="list">
+            {categories[1].map((product) => (
+              <h5>{product.name_product}</h5>
+            ))}
+          </div>
         </div>
       ))}
     </div>

@@ -20,7 +20,7 @@ export default function EditCategory(props) {
 
   const handleSumit = async (id, category, state_id) => {
     const result = await fetch('http://www.localhost:4000/categories', {
-      method: put,
+      method: 'PUT',
       body: JSON.stringify(input),
     })
     alert('Update Category')

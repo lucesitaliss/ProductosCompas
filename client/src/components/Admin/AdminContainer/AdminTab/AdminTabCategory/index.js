@@ -17,68 +17,92 @@ export default function AdminTabCategory() {
   }, [])
 
   const allCategories = async () => {
-    const result = await fetch('http://www.localhost:4000/categories')
-    const categories = await result.json()
-    dispatch(addCategories(categories))
+    try {
+      const result = await fetch('http://www.localhost:4000/categories')
+      if (result.ok) {
+        const categories = await result.json()
+        dispatch(addCategories(categories))
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleOnCLickDeleteCategorie = async (idCategory) => {
-    const result = await fetch(
-      `http://www.localhost:4000/categories/delete/${idCategory}`,
-      {
-        method: 'PUT',
-      },
-    )
-    allCategories()
+    try {
+      const result = await fetch(
+        `http://www.localhost:4000/category/delete/${idCategory}`,
+        {
+          method: 'PUT',
+        },
+      )
+      allCategories()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const confirmationDeleteWindow = (categoryId) => {
-    Swal.fire({
-      title: 'Delete',
-      text: 'Are you sure you want to delete the category?',
-      icon: 'info',
-      buttons: ['Cancel', 'Acept'],
-    }).then((response) => {
-      if (response) {
-        handleOnCLickDeleteCategorie(categoryId)
-        Swal.fire({
-          text: ' The category has been deleted successfully',
-          icon: 'success',
-        })
-      }
-    })
+    try {
+      Swal.fire({
+        title: 'Delete',
+        text: 'Are you sure you want to delete the category?',
+        icon: 'info',
+        buttons: ['Cancel', 'Acept'],
+      }).then((response) => {
+        if (response) {
+          handleOnCLickDeleteCategorie(categoryId)
+          Swal.fire({
+            text: ' The category has been deleted successfully',
+            icon: 'success',
+          })
+        }
+      })
+    } catch (error) {
+      console.error()
+    }
   }
 
   const handleOnClickEditCategory = async (bodyEditCategory) => {
-    console.log('bodyEditCategory', bodyEditCategory)
-    const result = await fetch('http://www.localhost:4000/categories', {
-      method: 'PUT',
-      body: JSON.stringify(bodyEditCategory),
-      headers: { 'content-type': 'application/json' },
-    })
-    const editCategory = await result.json()
-    allCategories()
+    try {
+      const result = await fetch('http://www.localhost:4000/category', {
+        method: 'PUT',
+        body: JSON.stringify(bodyEditCategory),
+        headers: { 'content-type': 'application/json' },
+      })
+      if (result.ok) {
+        const editCategory = await result.json()
+        allCategories()
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const modalEditCategory = async (currentCategory, id) => {
-    const { value: editedCategory } = await Swal.fire({
-      title: 'Edit Category',
-      input: 'text',
-      inputLabel: 'Insert Category',
-      inputValue: currentCategory,
-      showCancelButton: true,
-    })
+    try {
+      const { value: editedCategory } = await Swal.fire({
+        title: 'Edit Category',
+        input: 'text',
+        inputLabel: 'Insert Category',
+        inputValue: currentCategory,
+        showCancelButton: true,
+      })
 
-    if (editedCategory) {
-      const bodyEditCategory = {
-        id,
-        category: editedCategory,
+      if (editedCategory) {
+        const bodyEditCategory = {
+          id,
+          category: editedCategory,
+        }
+        handleOnClickEditCategory(bodyEditCategory)
+
+        await Swal.fire({
+          text: 'The category has been successfully modified',
+          icon: 'success',
+        })
       }
-      handleOnClickEditCategory(bodyEditCategory)
-      // Swal.fire({
-      //   text: 'The category has been successfully modified',
-      //   icon: 'success',
-      // })
+    } catch (error) {
+      console.error(error)
     }
   }
 

@@ -13,31 +13,38 @@ export default function Insert({ name }) {
     product: '',
     category: '',
   })
- 
+
   // const navegate = useNavigate()
 
   const handleSumit = async (e) => {
     e.preventDefault()
-    if (name === 'category') {
-      const result = await fetch('http://www.localhost:4000/categories', {
-        method: 'POST',
-        body: JSON.stringify(input),
-        headers: { 'content-type': 'application/json' },
-      })
-      const newCategory = await result.json()
-
-      dispatch(insertNewCategory(newCategory))
-      // navegate('/')
-      e.value = ''
-    }
-    if (name === 'product') {
-      const result = await fetch('http://www.localhost:4000/products', {
-        method: 'POST',
-        body: JSON.stringify(dataProduct),
-        headers: { 'content-type': 'application/json' },
-      })
-      const newProduct = await result.json()
-      dispatch(insertNewProduct(newProduct))
+    try {
+      if (name === 'category') {
+        const result = await fetch('http://www.localhost:4000/category', {
+          method: 'POST',
+          body: JSON.stringify(input),
+          headers: { 'content-type': 'application/json' },
+        })
+        if (result.ok) {
+          const newCategory = await result.json()
+          dispatch(insertNewCategory(newCategory))
+          // navegate('/')
+          e.value = ''
+        }
+      }
+      if (name === 'product') {
+        const result = await fetch('http://www.localhost:4000/product', {
+          method: 'POST',
+          body: JSON.stringify(dataProduct),
+          headers: { 'content-type': 'application/json' },
+        })
+        if (result.ok) {
+          const newProduct = await result.json()
+          dispatch(insertNewProduct(newProduct))
+        }
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 

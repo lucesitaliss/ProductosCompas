@@ -25,7 +25,7 @@ const getProductById = async (req, res, next) => {
   }
 }
 
-const getProductByCategory = async (req, res, next) => {
+const getProductsByCategory = async (req, res, next) => {
   const { id_category } = req.params
   try {
     const result = await pool.query(
@@ -122,7 +122,7 @@ const updateDeleteProduct = async (req, res, next) => {
   }
 }
 
-const deleteProducts = async (req, res, next) => {
+const deleteProduct = async (req, res, next) => {
   const { id } = req.params
   try {
     const result = await pool.query(
@@ -144,6 +144,6 @@ module.exports = {
   updateChangeChecked,
   updateResetChecked,
   updateDeleteProduct,
-  deleteProducts,
-  getProductByCategory,
+  deleteProduct,
+  getProductsByCategory,
 }

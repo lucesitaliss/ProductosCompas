@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCategorySelect } from '../../../features/category/categorySlice'
+import Swal from 'sweetalert2'
 import './categorySelect.css'
 
 export function CategorySelect() {
@@ -16,9 +17,11 @@ export function CategorySelect() {
   }
 
   const getCategories = async () => {
-    const response = await fetch('http://www.localhost:4000/categories')
-    const result = await response.json()
-    setCategories(result)
+    try {
+      const response = await fetch('http://www.localhost:4000/categories')
+      const result = await response.json()
+      setCategories(result)
+    } catch (error) {}
   }
 
   useEffect(() => {

@@ -8,8 +8,6 @@ import './adminTabProduct.css'
 export default function AdminTabProduct() {
   const dispatch = useDispatch()
   const { categoryId } = useSelector((state) => state.categorySelect)
-
-  // const [productByCategory, setproductByCategory] = useState([])
   const { products } = useSelector((state) => state.listProducts)
   console.log(products)
 
@@ -17,16 +15,19 @@ export default function AdminTabProduct() {
     productsByCategory()
   }, [categoryId])
 
-  
-
   const productsByCategory = async () => {
-    if (categoryId > 0) {
-      const result = await fetch(
-        `http://www.localhost:4000/products/category/${categoryId}`,
-      )
-      const products = await result.json()
-      // setproductByCategory(products)
-      dispatch(addProducts(products))
+    try{
+      if (categoryId > 0) {
+        const result = await fetch(
+          `http://www.localhost:4000/products/category/${categoryId}`,
+        )
+        if(result.ok){
+          const products = await result.json()
+          dispatch(addProducts(products))
+        }
+      }
+    }catch(error){
+      console.error(error)
     }
   }
 

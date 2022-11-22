@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import './productCheckbox.css'
 
 export default function ProductsCheckbox() {
-  const navigate = useNavigate()
-
   const { categoryId } = useSelector((state) => state.categorySelect)
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    categoryId && getProducts()
+    categoryId && getProductsByCategory()
   }, [categoryId])
 
-  const getProducts = async () => {
+  const getProductsByCategory = async () => {
     if (categoryId > 0) {
       const response = await fetch(
         `http://www.localhost:4000/products/category/${categoryId}`,
@@ -23,56 +20,64 @@ export default function ProductsCheckbox() {
     }
   }
 
-  const handleChange = async (e) => {
-    console.log('e.targetonchange', e.target)
-    const oldValueChecked = await fetch(
-      `http://www.localhost:4000/product/checked/id/${e.target.id}`,
-    )
-    const objectchecked = await oldValueChecked.json()
-    const checked = objectchecked.checked
-
-    const invertChecked = (checked) => {
-      if (checked) {
-        checked = false
-        return checked
-      }
-      checked = true
+  const invertChecked = (checked) => {
+    if (checked) {
+      checked = false
       return checked
     }
-    const dataBody = {
-      valueChecked: invertChecked(checked),
-      idProduct: e.target.id,
-    }
+    checked = true
+    return checked
+  }
 
-    const updateChecked = await fetch(
-      'http://www.localhost:4000/product/checked',
-      {
-        method: 'put',
-        body: JSON.stringify(dataBody),
-        headers: { 'content-type': 'application/json' },
-      },
-    )
-    getProducts()
+  const handleChange = async (e) => {
+    try {
+      console.log('e.targetonchange', e.target)
+      const oldValueChecked = await fetch(
+        `http://www.localhost:4000/product/checked/id/${e.target.id}`,
+      )
+      const objectchecked = await oldValueChecked.json()
+      const checked = objectchecked.checked
+
+      const dataBody = {
+        valueChecked: invertChecked(checked),
+        idProduct: e.target.id,
+      }
+
+      const updateChecked = await fetch(
+        'http://www.localhost:4000/product/checked',
+        {
+          method: 'PUT',
+          body: JSON.stringify(dataBody),
+          headers: { 'content-type': 'application/json' },
+        },
+      )
+      getProductsByCategory()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const insertCart = async () => {
-    const getProducts = await fetch('http://www.localhost:4000/products')
-    const allProducts = await getProducts.json()
-    const selectProducts = allProducts.filter(
-      (products) => products.checked === true,
-    )
+    try {
+      const getProducts = await fetch('http://www.localhost:4000/products')
+      const allProducts = await getProducts.json()
+      const selectProducts = allProducts.filter(
+        (products) => products.checked === true,
+      )
 
-    const response = await fetch('http://www.localhost:4000/cart', {
-      method: 'Post',
-      body: JSON.stringify(selectProducts),
-      headers: { 'content-type': 'application/json' },
-    })
+      const response = await fetch('http://www.localhost:4000/cart', {
+        method: 'POST',
+        body: JSON.stringify(selectProducts),
+        headers: { 'content-type': 'application/json' },
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleSumit = async (e) => {
     e.preventDefault()
     await insertCart()
-    navigate('/cart')
   }
 
   return (

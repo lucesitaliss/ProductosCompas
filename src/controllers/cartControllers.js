@@ -29,9 +29,10 @@ const getCart = async (req, res, next) => {
     })
     productsByCategorys.push(productByCategory)
 
-    res.json(productByCategory)
+    res.status(200).json(productByCategory)
   } catch (error) {
-    next(error)
+   return next(error)
+   
   }
 }
 

@@ -5,14 +5,13 @@ import './admin.css'
 export default function Admin() {
   const [currentTab, setCurrentTab] = useState(0)
   const [tabName, setTabName] = useState('')
+  const [show, setShow] = useState(false)
 
   const adminTabs = {
     users: { title: 'Users', id: 2, name: 'user' },
     categories: { title: 'Categories', id: 1, name: 'category' },
     products: { title: 'Products', id: 3, name: 'product' },
   }
-
-  const [show, setShow] = useState(false)
 
   const handleOnClick = (id, name) => {
     setCurrentTab(id)

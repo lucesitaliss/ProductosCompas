@@ -1,13 +1,14 @@
 const pool = require('../db')
 const { capitalize } = require('../utils/strings')
-const getCategorys = async (req, res, next) => {
+
+const getCategories = async (req, res, next) => {
   try {
     const result = await pool.query(
       'SELECT* FROM categories WHERE state_id = 1',
     )
-    res.status(201).json(result.rows)
+    res.status(200).json(result.rows)
   } catch (error) {
-    next(error)
+    return next(error)
   }
 }
 
@@ -23,9 +24,9 @@ const getCategoryById = async (req, res, next) => {
         message: 'El id de categoría especificado no existe',
       })
     }
-    res.json(result.rows[0])
+    res.status(200).json(result.rows[0])
   } catch (error) {
-    next(error)
+    return next(error)
   }
 }
 
@@ -38,9 +39,9 @@ const insertCategory = async (req, res, next) => {
       [capitalize(category), 1],
     )
 
-    res.json(result.rows[0])
+    res.status(200).json(result.rows[0])
   } catch (error) {
-    next(error)
+   return  next(error)
   }
 }
 
@@ -53,7 +54,7 @@ const updateCategory = async (req, res, next) => {
     )
     res.json(result.rows[0])
   } catch (error) {
-    next(error)
+    return next(error)
   }
 }
 
@@ -67,7 +68,7 @@ const updateDeleteCategory = async (req, res, next) => {
     console.log(result)
     res.json(result.rows[0])
   } catch (error) {
-    next(error)
+    return next(error)
   }
 }
 
@@ -90,7 +91,7 @@ const deleteCategory = async (req, res, next) => {
 }
 
 module.exports = {
-  getCategorys,
+  getCategories,
   getCategoryById,
   insertCategory,
   updateCategory,
