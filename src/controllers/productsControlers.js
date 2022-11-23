@@ -33,7 +33,7 @@ const getProductsByCategory = async (req, res, next) => {
     SELECT * 
     FROM products
     JOIN categories ON categories.id_category = products.category_id
-    where categories.id_category = $1 
+    where categories.id_category = $1 and products.state_id=1 
     ORDER BY name_product
     `,
       [id_category],
@@ -49,8 +49,8 @@ const insertProduct = async (req, res, next) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO products(name_product, category_id, state_id) VALUES ($1, $2, $3) RETURNING*',
-      [capitalize(product), category, 1],
+      'INSERT INTO products(name_product, category_id, state_id) VALUES ($1, $2, 1) RETURNING*',
+      [capitalize(product), category],
     )
 
     res.json(result.rows[0])
@@ -60,11 +60,12 @@ const insertProduct = async (req, res, next) => {
 }
 
 const updateProduct = async (req, res, next) => {
-  const { product, state_id, category, id } = req.body
+  const { product, id } = req.body
+  console.log(product, id)
   try {
     const result = await pool.query(
-      'UPDATE products SET name_product = $1, state_id = $2, category_id =$3 WHERE id_product=$4 RETURNING*',
-      [capitalize(product), state_id, category, id],
+      'UPDATE products SET name_product = $1 WHERE id_product = $2 RETURNING*',
+      [capitalize(product), id],
     )
 
     res.json(result.rows[0])
@@ -109,11 +110,11 @@ const updateResetChecked = async (req, res, next) => {
 }
 
 const updateDeleteProduct = async (req, res, next) => {
-  const { id, state_id } = req.body
+  const { id } = req.body
   try {
     const result = await pool.query(
-      'UPDATE products SET state_id =$1 WHERE id_product = $2 RETURNING*',
-      [state_id, id],
+      'UPDATE products SET state_id =2 WHERE id_product = $1 RETURNING*',
+      [id],
     )
 
     res.json(result.rows[0])

@@ -8,6 +8,7 @@ import { insertNewProduct } from '../../../../features/listProducts/listProducts
 export default function Insert({ name }) {
   const dispatch = useDispatch()
   const { categoryId } = useSelector((state) => state.categorySelect)
+  
   const [input, setInput] = useState({ category: '' })
   const [dataProduct, setdataProduct] = useState({
     product: '',
