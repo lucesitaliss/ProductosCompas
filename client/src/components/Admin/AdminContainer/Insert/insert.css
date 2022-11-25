@@ -1,13 +1,11 @@
 form{
     display: flex;
     padding: 5px;
-    justify-content: space-evenly;
+    padding-top: 15px;
+  
 }
 
-input{
-    padding: 10px;
-    
-}
+
 
 .sumit{
     padding: 5px;
