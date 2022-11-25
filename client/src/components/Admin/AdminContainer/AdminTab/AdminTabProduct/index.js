@@ -33,16 +33,20 @@ export default function AdminTabProduct() {
     }
   }
 
-  const confirmationDeleteWindow = (bodyDelete) => {
+  const handleOnclikDeleteProduct = (idProduct, nameProduct) => {
     try {
+      const bodyDelete = {
+        id: idProduct,
+      }
       Swal.fire({
         title: 'Delete',
-        text: 'Are you sure you want to delete the category?',
+        text: `Are you sure you want to delete the pruduct ${nameProduct}?`,
         icon: 'info',
         buttons: ['Cancel', 'Acept'],
       }).then((response) => {
         if (response) {
-          handleOnclikDeleteProduct(bodyDelete)
+          // handleOnclikDeleteProduct(bodyDelete)
+          deleteProduct(bodyDelete)
           Swal.fire({
             text: ' The category has been deleted successfully',
             icon: 'success',
@@ -54,7 +58,7 @@ export default function AdminTabProduct() {
     }
   }
 
-  const handleOnclikDeleteProduct = async (bodyDelete) => {
+  const deleteProduct = async (bodyDelete) => {
     try {
       const result = await fetch('http://www.localhost:4000/product/delete/', {
         method: 'PUT',
@@ -69,7 +73,7 @@ export default function AdminTabProduct() {
     }
   }
 
-  const modalEditCategory = async (currentProduct, id) => {
+  const handleOnClickEdit = async (currentProduct, id) => {
     const { value: editProduct } = await Swal.fire({
       title: 'Edit Product',
       input: 'text',
@@ -82,7 +86,7 @@ export default function AdminTabProduct() {
         product: editProduct,
         id,
       }
-      handleOnClickEdit(bodyEdit)
+      editCategory(bodyEdit)
       await Swal.fire({
         text: 'The product has been successfully modified',
         icon: 'success',
@@ -90,7 +94,7 @@ export default function AdminTabProduct() {
     }
   }
 
-  const handleOnClickEdit = async (bodyEdit) => {
+  const editCategory = async (bodyEdit) => {
     console.log(bodyEdit)
     try {
       const result = await fetch('http://www.localhost:4000/product/', {
@@ -117,13 +121,16 @@ export default function AdminTabProduct() {
           <BiEditAlt
             className="iconEditProduct"
             onClick={() => {
-              modalEditCategory(product.name_product, product.id_product)
+              handleOnClickEdit(product.name_product, product.id_product)
             }}
           />
           <RiDeleteBin6Line
             className="iconDeleteProduct"
             onClick={() => {
-              confirmationDeleteWindow({ id: product.id_product })
+              handleOnclikDeleteProduct(
+                product.id_product,
+                product.name_product,
+              )
             }}
           />
           {product.name_product}

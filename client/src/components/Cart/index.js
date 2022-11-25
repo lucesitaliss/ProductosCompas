@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import './cart.css'
 
 export default function Cart() {
@@ -88,7 +89,28 @@ export default function Cart() {
     }
   }
 
-  const handleSubmitDeleteCartById = (idCart, idProduct) => {
+  const handleSubmitDeleteCartById = (nameCart, idCart, idProduct) => {
+    try {
+      Swal.fire({
+        title: 'Delete',
+        text: `Are you sure you want to delete the product ${nameCart} ?`,
+        icon: 'info',
+        buttons: ['cancel', 'Acept'],
+      }).then((response) => {
+        if (response) {
+          DeleteCartById(idCart, idProduct)
+          Swal.fire({
+            text: 'The category has been deleted successfully',
+            icon: 'success',
+          })
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const DeleteCartById = (idCart, idProduct) => {
     deleteCartById(idCart)
     resetCheckedProduct(idProduct)
   }
@@ -117,6 +139,7 @@ export default function Cart() {
                 className="iconDeleteCart"
                 onClick={() => {
                   handleSubmitDeleteCartById(
+                    product.name_product,
                     product.id_cart,
                     product.product_id,
                   )

@@ -28,7 +28,7 @@ export default function AdminTabCategory() {
     }
   }
 
-  const handleOnCLickDeleteCategorie = async (idCategory) => {
+  const deleteCategorie = async (idCategory) => {
     try {
       const result = await fetch(
         `http://www.localhost:4000/category/delete/${idCategory}`,
@@ -42,16 +42,16 @@ export default function AdminTabCategory() {
     }
   }
 
-  const confirmationDeleteWindow = (categoryId) => {
+  const handleOnCLickDeleteCategorie = (categoryId, categoryName) => {
     try {
       Swal.fire({
         title: 'Delete',
-        text: 'Are you sure you want to delete the category?',
+        text: `Are you sure you want to delete the category ${categoryName}?`,
         icon: 'info',
         buttons: ['Cancel', 'Acept'],
       }).then((response) => {
         if (response) {
-          handleOnCLickDeleteCategorie(categoryId)
+          deleteCategorie(categoryId)
           Swal.fire({
             text: ' The category has been deleted successfully',
             icon: 'success',
@@ -63,7 +63,7 @@ export default function AdminTabCategory() {
     }
   }
 
-  const handleOnClickEditCategory = async (bodyEditCategory) => {
+  const editCategory = async (bodyEditCategory) => {
     try {
       const result = await fetch('http://www.localhost:4000/category', {
         method: 'PUT',
@@ -79,7 +79,7 @@ export default function AdminTabCategory() {
     }
   }
 
-  const modalEditCategory = async (currentCategory, id) => {
+  const handleOnClickEditCategory = async (currentCategory, id) => {
     try {
       const { value: editedCategory } = await Swal.fire({
         title: 'Edit Category',
@@ -94,7 +94,8 @@ export default function AdminTabCategory() {
           id,
           category: editedCategory,
         }
-        handleOnClickEditCategory(bodyEditCategory)
+        // handleOnClickEditCategory(bodyEditCategory)
+        editCategory(bodyEditCategory)
 
         await Swal.fire({
           text: 'The category has been successfully modified',
@@ -114,13 +115,19 @@ export default function AdminTabCategory() {
           <BiEditAlt
             className="iconEdit"
             onClick={() => {
-              modalEditCategory(category.name_category, category.id_category)
+              handleOnClickEditCategory(
+                category.name_category,
+                category.id_category,
+              )
             }}
           />
           <RiDeleteBin6Line
             className="iconDelete"
             onClick={() => {
-              confirmationDeleteWindow(category.id_category)
+              handleOnCLickDeleteCategorie(
+                category.id_category,
+                category.name_category,
+              )
             }}
           />
           {category.name_category}

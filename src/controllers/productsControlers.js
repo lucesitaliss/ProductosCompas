@@ -34,7 +34,7 @@ const getProductsByCategory = async (req, res, next) => {
     FROM products
     JOIN categories ON categories.id_category = products.category_id
     where categories.id_category = $1 and products.state_id=1 
-    ORDER BY name_product
+    ORDER BY id_product
     `,
       [id_category],
     )
