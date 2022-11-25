@@ -14,9 +14,8 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Cart />} />
           <Route path="/newcart" element={<NewCart />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>

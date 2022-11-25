@@ -13,7 +13,7 @@ CREATE TABLE categories(
 
 CREATE TABLE products(
     id_product SERIAL PRIMARY KEY,
-    name_product VARCHAR(255) UNIQUE,
+    name_product VARCHAR(255),
     category_id integer REFERENCES categories(id_category),
     state_id integer REFERENCES statuses (id_state),
     
@@ -42,6 +42,8 @@ CREATE TABLE cart(
     product_id integer REFERENCES products (id_product)
    
 );
+
+ALTER TABLE cart ADD COLUMN selected boolean default false;
 
 
 

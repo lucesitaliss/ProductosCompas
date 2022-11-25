@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import './productCheckbox.css'
 
 export default function ProductsCheckbox() {
@@ -10,6 +11,7 @@ export default function ProductsCheckbox() {
     categoryId && getProductsByCategory()
   }, [categoryId])
 
+  const navegate = useNavigate()
   const getProductsByCategory = async () => {
     if (categoryId > 0) {
       const response = await fetch(
@@ -78,6 +80,7 @@ export default function ProductsCheckbox() {
   const handleSumit = async (e) => {
     e.preventDefault()
     await insertCart()
+    navegate('/')
   }
 
   return (

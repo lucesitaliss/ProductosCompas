@@ -100,10 +100,22 @@ const updateChangeChecked = async (req, res, next) => {
     next(error)
   }
 }
+
+const updateResetCheckedById = async (req, res, next) => {
+  const { id } = req.params
+  console.log(id)
+
+  const result = pool.query(
+    'UPDATE products SET checked=false where id_product =$1 RETURNING*',
+    [id],
+  )
+  res.json((await result).rows[0])
+}
+
 const updateResetChecked = async (req, res, next) => {
   try {
     const result = pool.query('UPDATE products SET checked=false')
-    res.json((await result).rows)
+    res.json(result.rows[0])
   } catch (error) {
     next(error)
   }
@@ -143,6 +155,7 @@ module.exports = {
   updateProduct,
   getCheckedById,
   updateChangeChecked,
+  updateResetCheckedById,
   updateResetChecked,
   updateDeleteProduct,
   deleteProduct,

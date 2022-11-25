@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 import { useNavigate } from 'react-router-dom'
 import './cart.css'
 
@@ -42,18 +43,61 @@ export default function Cart() {
     }
   }
 
-  const handleSumit = (e) => {
+  const handleSumitCleanList = (e) => {
     e.preventDefault()
     insertHistorycart()
     deleteCart()
     navegate('/')
   }
 
+  const handleSubmitProductList = async (id, selected) => {
+    try {
+      const bodyParams = {
+        id,
+        selected,
+      }
+      const response = await fetch(`http://www.localhost:4000/cart`, {
+        method: 'PUT',
+        body: JSON.stringify(bodyParams),
+        headers: { 'content-type': 'application/json' },
+      })
+      if (response.ok) {
+        getProductsSelections()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const resetCheckedProduct = async (id) => {
+    const response = await fetch(
+      `http://www.localhost:4000/product/checked/reset/id/${id}`,
+      {
+        method: 'PUT',
+      },
+    )
+  }
+
+  const deleteCartById = async (id) => {
+    console.log(id)
+    const response = await fetch(`http://www.localhost:4000/cart/${id}`, {
+      method: 'DELETE',
+    })
+    if (response.ok) {
+      getProductsSelections()
+    }
+  }
+
+  const handleSubmitDeleteCartById = (idCart, idProduct) => {
+    deleteCartById(idCart)
+    resetCheckedProduct(idProduct)
+  }
+
   return (
     <div>
       <div className="titelButton">
         <h2>Lista de Compras </h2>
-        <form onSubmit={handleSumit}>
+        <form onSubmit={handleSumitCleanList}>
           <input
             className="ButtonEmptyList"
             type="submit"
@@ -63,13 +107,33 @@ export default function Cart() {
       </div>
 
       {Object.entries(productsSelect).map((categories) => (
-        <div className="title">
-          <h3>{categories[0]}</h3>
-          <div className="list">
-            {categories[1].map((product) => (
-              <h5>{product.name_product}</h5>
-            ))}
-          </div>
+        <div className="containerList">
+          <h3 className="titleCategory" key="categories.id_category">
+            {categories[0]}
+          </h3>
+          {categories[1].map((product) => (
+            <div className="cartList" key={product.product_id}>
+              <RiDeleteBin6Line
+                className="iconDeleteCart"
+                onClick={() => {
+                  handleSubmitDeleteCartById(
+                    product.id_cart,
+                    product.product_id,
+                  )
+                }}
+              />
+              <h5
+                onClick={() => {
+                  handleSubmitProductList(product.id_cart, product.selected)
+                }}
+                className={
+                  product.selected ? 'throughProductList' : 'productList'
+                }
+              >
+                {product.name_product}
+              </h5>
+            </div>
+          ))}
         </div>
       ))}
     </div>

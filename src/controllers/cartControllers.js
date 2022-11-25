@@ -9,10 +9,13 @@ const getCart = async (req, res, next) => {
    products.name_product,
    products.id_product,
    products.category_id,
-   cart.product_id 
+   cart.product_id,
+   cart.selected,
+   cart.id_cart
    FROM categories
    JOIN products ON categories.id_category = products.category_id
-   JOIN cart ON cart.product_id = products.id_product;`)
+   JOIN cart ON cart.product_id = products.id_product
+   ORDER BY products.id_product;`)
 
     const productByCategory = {}
     const productsByCategorys = []
@@ -31,8 +34,7 @@ const getCart = async (req, res, next) => {
 
     res.status(200).json(productByCategory)
   } catch (error) {
-   return next(error)
-   
+    return next(error)
   }
 }
 
@@ -55,13 +57,45 @@ const addCart = async (req, res, next) => {
   }
 }
 
+const updateInvertSeleted = async (req, res, next) => {
+  try {
+    const { id, selected } = req.body
+    const result = await pool.query(
+      'UPDATE cart SET selected=$1 where id_cart=$2 RETURNING*',
+      [!selected, id],
+    )
+    res.json(result)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const deleteCartById = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const result = await pool.query(
+      'DELETE FROM cart WHERE id_cart = $1 RETURNING*',
+      [id],
+    )
+    res.json(result.rows[0])
+  } catch (error) {
+    next(error)
+  }
+}
+
 const deleteAllCart = async (req, res, next) => {
-  const result = pool.query('truncate cart')
-  res.send('La Tabla Cart ha sido vaciada')
+  try {
+    const result = await pool.query('truncate cart')
+    res.send('La Tabla Cart ha sido vaciada')
+  } catch (error) {
+    next(error)
+  }
 }
 
 module.exports = {
   getCart,
   addCart,
+  updateInvertSeleted,
+  deleteCartById,
   deleteAllCart,
 }

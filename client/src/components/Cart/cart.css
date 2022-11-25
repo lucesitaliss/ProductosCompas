@@ -1,32 +1,60 @@
-
-h3{
-background-color: darkgrey;
-
-}
-
 .titelButton{
-    display: flex;
-    justify-content: space-evenly;
-
+  display: flex;
+  justify-content: space-evenly;
 }
-
 
 .ButtonEmptyList{
-    width: 90px;
-    height: 30px;
-    margin-left: 15px;
-    margin-top: 5px;
-    text-align: center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
+  width: 90px;
+  height: 30px;
+  margin-left: 15px;
+  margin-top: 5px;
+  text-align: center;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
 }
 
+.containerList{
+ 
+}
 
-h5{
-     height: 0; 
-}
-.title{
-   margin-bottom:0;
-}
-.list{
-    margin-top: 0;
-}
+    .titleCategory{
+    background-color: darkgrey;
+    padding-left: 5px;
+    }
+
+    .cartList{
+      display: block;
+    }
+
+        .iconDeleteCart{
+          display: inline;
+        }
+
+        .throughProductList{     
+          display: inline;
+          padding-left: 10px;
+          height: 0; 
+          text-decoration:line-through;
+       
+         }
+
+         .productList{
+          display: inline;
+          padding-left: 10px;
+          height: 0; 
+       
+         }
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
