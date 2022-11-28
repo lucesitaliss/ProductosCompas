@@ -2,12 +2,12 @@ CREATE DATABASE cart;
 
 CREATE TABLE statuses (
     id_state SERIAL PRIMARY KEY,
-    name_state VARCHAR (255) UNIQUE
+    name_state VARCHAR (255) 
 );
 
 CREATE TABLE categories(
     id_category SERIAL PRIMARY KEY,
-    name_category VARCHAR(255) UNIQUE,
+    name_category VARCHAR(255),
     state_id integer REFERENCES statuses (id_state)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE products(
     id_product SERIAL PRIMARY KEY,
     name_product VARCHAR(255),
     category_id integer REFERENCES categories(id_category),
-    state_id integer REFERENCES statuses (id_state),
+    state_id integer REFERENCES statuses (id_state)
     
 );
 ALTER TABLE products ADD COLUMN checked boolean default false;

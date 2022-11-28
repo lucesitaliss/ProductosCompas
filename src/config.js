@@ -11,12 +11,12 @@ config()
 //   },
 // }
 module.exports = {
-  PORT: process.env.PORT || 4000,
+  PORT: process.env.PORT || 4001,
   db: {
-    user: process.env.DB_USER || postgres,
-    password: process.env.DB_PASSWORD || 2020,
-    host: process.env.DB_HOST || localhost,
-    port: process.env.DB_PORT || 5432,
-    database: process.env.DB_DATABASE || cart,
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || '2020',
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || '5432',
+    database: process.env.DB_DATABASE || 'cart',
   },
 }
